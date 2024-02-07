@@ -56,6 +56,16 @@ app.get("/error", (req, res) => {
     res.sendFile(__dirname + "/pages/error.html");
 });
 
+app.get("/users", async (req, res) => {
+    try {
+        const users = await Registration.find();
+        res.json(users);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });
